@@ -16,4 +16,4 @@ vera með bókanir í gagnagrunni viljum ekki tapa bókunum<br>
 hugbúnaðurinn verður að geta sýnt bókanir frá annaðhvort database eða txt file<br>
 Layout þarf að vera allavega auðvelt í notkun<br>
 einhverskonar lista uppsetning fyrir tíma sem sjást<br>
-búa til annaðhvort SQL eða SQLite gagnagrunn hvor er einfaldari og þægilegri meta kosti og galla <br>
+búa til annaðhvort SQL eða SQLite gagnagrunn ,Firebase gagnagrunnur? hvor er einfaldari og þægilegri meta kosti og galla <br>
