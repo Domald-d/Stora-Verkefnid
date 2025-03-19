@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Button?>
+<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="vidmot.simplebooks.simpleBooksController">
+    <TableView fx:id="fxBokun" >
+        <columns>
+            <TableColumn text="ID" fx:id="idCol"/>
+            <TableColumn text="nafn" fx:id="nafnCol"/>
+            <TableColumn text="dagsetning" fx:id="dateCol"/>
+            <TableColumn text="tími" fx:id="timeCol"/>
+            <TableColumn text="Bíl Númer" fx:id="bilCol"/>
+            <TableColumn text="Athugasemd" fx:id="athCol"/>
+        </columns>
+    </TableView>
+
+    <HBox spacing="10">
+        <Button text="Bóka Tíma" onAction="#BokunarGluggi"/>
+        <Button text="Uppfæra Bókun" onAction="#uppfaeraGluggi"/>
+        <Button text="Eyða Bókun" onAction="#eyda"/>
+    </HBox>
+
+</VBox>
