@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.util.StringConverter;
 import vinnsla.Bokanir;
 import vinnsla.DataManager;
 
@@ -13,6 +14,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class nyrGluggiController {
     @FXML
@@ -35,7 +37,17 @@ public class nyrGluggiController {
 
     @FXML
     public void initialize(){
-        fxTime.setItems(FXCollections.observableArrayList(IntStream.range(8,19).mapToObj(hour -> LocalTime.of(hour,0)).collect(Collectors.toList())));
+        fxTime.setItems(FXCollections.observableArrayList(IntStream.range(8,18).boxed().flatMap(hour -> Stream.of(0,5,10,15,20,25,30,35,40,45,50,55).map(minute -> LocalTime.of(hour,minute))).collect(Collectors.toList())));
+        fxTime.setConverter(new StringConverter<LocalTime>() {
+            private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+            public String toString(LocalTime localTime) {
+                return localTime != null ? formatter.format(localTime) : "";
+            }
+
+            public LocalTime fromString(String s) {
+                return LocalTime.parse(s,formatter);
+            }
+        });
     }
 
     public void setBokunarGogn(Bokanir bokanir){
