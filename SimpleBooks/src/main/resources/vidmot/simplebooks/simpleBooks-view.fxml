@@ -26,7 +26,7 @@
             <MenuItem text="Search"/>
         </Menu>
         <Menu text="Hjálp">
-            <MenuItem text="About"/>
+            <MenuItem text="About" onAction="#About"/>
         </Menu>
     </MenuBar>
     <TableView fx:id="fxBokun" >
