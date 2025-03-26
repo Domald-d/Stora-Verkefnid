@@ -110,4 +110,16 @@ public class simpleBooksController {
     private void Haetta(){
         System.exit(0);
     }
+    @FXML
+    private void About(){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Um forrit");
+        alert.setHeaderText("Simple Booking");
+        alert.setContentText("Þetta er einfalt Bókunar Forrit.\n\n" +
+                "ýttu á Hætta undir Skrá í menu til að loka forriti\n\n"+
+                "til að getað Bókað nýjan viðskiptavin farðu í Bókanir glugga og smelltu á Bóka tíma\n\n"+
+                "til að uppfæra bókun klikkaðu á bókun í Töflu og smelltu á Bókanir í menu og smelltu svo á uppfæra Bókun\n\n"+
+                "Til að eyða bókun smelltu á Bókun í töflu sem á að eyða og farðu í Bókanir í menu og smelltu á Eyða Bókun");
+        alert.showAndWait();
+    }
 }
