@@ -18,5 +18,8 @@
     <TextField fx:id="fxBilNumer"/>
     <Label text="Athugasemdir"/>
     <TextField fx:id="fxAth"/>
-    <Button fx:id="button" text="Bóka Tíma" onAction="#buaTilBok"/>
+    <HBox>
+        <Button fx:id="button" text="Breyta Tíma" onAction="#buaTilBok"/>
+        <Button text="Cancel" onAction="#loka"/>
+    </HBox>
 </VBox>

@@ -13,6 +13,8 @@
     <ComboBox fx:id="fxTime"/>
     <TextField fx:id="fxBilNumer"/>
     <TextField fx:id="fxAth"/>
-
-    <Button fx:id="button" text="Breyta Tíma" onAction="#uppfaera"/>
+    <HBox spacing="10">
+        <Button fx:id="button" text="Breyta Tíma" onAction="#uppfaera"/>
+        <Button text="Cancel" onAction="#loka"/>
+    </HBox>
 </VBox>

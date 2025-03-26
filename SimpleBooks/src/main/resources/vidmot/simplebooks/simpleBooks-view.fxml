@@ -8,8 +8,27 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuItem?>
 <VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
       fx:controller="vidmot.simplebooks.simpleBooksController">
+    <MenuBar>
+        <Menu text="Skrá">
+            <MenuItem text="Loka Forriti" onAction="#Haetta"/>
+        </Menu>
+        <Menu text="Bókanir">
+            <MenuItem text="Bóka Tíma" onAction="#BokunarGluggi"/>
+            <MenuItem text="Uppfæra Bókun" onAction="#uppfaeraGluggi"/>
+            <MenuItem text="Eyða Bókun" onAction="#eyda"/>
+        </Menu>
+        <Menu text="Search">
+            <MenuItem text="Search"/>
+        </Menu>
+        <Menu text="Hjálp">
+            <MenuItem text="About"/>
+        </Menu>
+    </MenuBar>
     <TableView fx:id="fxBokun" >
         <columns>
             <TableColumn text="ID" fx:id="idCol"/>
@@ -20,11 +39,4 @@
             <TableColumn text="Athugasemd" fx:id="athCol"/>
         </columns>
     </TableView>
-
-    <HBox spacing="10">
-        <Button text="Bóka Tíma" onAction="#BokunarGluggi"/>
-        <Button text="Uppfæra Bókun" onAction="#uppfaeraGluggi"/>
-        <Button text="Eyða Bókun" onAction="#eyda"/>
-    </HBox>
-
 </VBox>
