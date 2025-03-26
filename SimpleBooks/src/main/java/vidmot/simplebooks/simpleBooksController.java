@@ -70,7 +70,7 @@ public class simpleBooksController {
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle(title);
-            stage.setScene(new Scene(loader.load(),320,240));
+            stage.setScene(new Scene(loader.load(),250,240));
 
             nyrGluggiController controller = loader.getController();
             if(bokanir != null){
@@ -105,5 +105,9 @@ public class simpleBooksController {
         alert.setHeaderText(null);
         alert.setContentText(msg);
         alert.showAndWait();
+    }
+    @FXML
+    private void Haetta(){
+        System.exit(0);
     }
 }

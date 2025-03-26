@@ -89,6 +89,11 @@ public class nyrGluggiController {
         }
     }
 
+    @FXML
+    private void loka(){
+        fxNafn.getScene().getWindow().hide();
+    }
+
     public static void main(String[] args) {
 
     }
