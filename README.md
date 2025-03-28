@@ -9,3 +9,4 @@ Smellum á  Maven merkið og ýtum á Compiler:compile og svo er hægt að keyra
 
 Þegar notandi hefur keyrt forrit upp ætti hann að fá upp appið sem lýtur svona út
 ![image](https://github.com/user-attachments/assets/3f36a7e3-f9c7-4ff4-9705-2b37fdcbd335)
+til að fá upplýsingar um forrit og hvernig það virkar er hægt að smella á Hjálp takkan í Menu og ýta á about<br>
