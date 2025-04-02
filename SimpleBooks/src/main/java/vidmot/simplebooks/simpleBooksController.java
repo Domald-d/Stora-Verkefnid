@@ -2,12 +2,12 @@ package vidmot.simplebooks;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import vinnsla.Bokanir;
@@ -31,6 +31,7 @@ public class simpleBooksController {
     @FXML
     TableColumn<Bokanir,String> athCol;
     private ObservableList<Bokanir> bokanaListi = FXCollections.observableArrayList();
+    private FilteredList<Bokanir> filteredList;
 
     @FXML
     public void initialize(){
@@ -42,11 +43,14 @@ public class simpleBooksController {
         athCol.setCellValueFactory(cell -> cell.getValue().athProperty());
 
         synaBokanir();
+
+        filteredList = new FilteredList<>(bokanaListi, p -> true);
+        fxBokun.setItems(filteredList);
+
     }
     private void synaBokanir(){
         bokanaListi.clear();
         bokanaListi.addAll(DataManager.getBokun());
-        fxBokun.setItems(bokanaListi);
     }
 
     @FXML
@@ -70,7 +74,8 @@ public class simpleBooksController {
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle(title);
-            stage.setScene(new Scene(loader.load(),250,240));
+            stage.setScene(new Scene(loader.load(),260,290));
+            stage.getIcons().add(new Image(getClass().getResourceAsStream("/img/icon.jpg")));
 
             nyrGluggiController controller = loader.getController();
             if(bokanir != null){
@@ -120,6 +125,37 @@ public class simpleBooksController {
                 "til að getað Bókað nýjan viðskiptavin farðu í Bókanir glugga og smelltu á Bóka tíma\n\n"+
                 "til að uppfæra bókun klikkaðu á bókun í Töflu og smelltu á Bókanir í menu og smelltu svo á uppfæra Bókun\n\n"+
                 "Til að eyða bókun smelltu á Bókun í töflu sem á að eyða og farðu í Bókanir í menu og smelltu á Eyða Bókun");
+        alert.showAndWait();
+    }
+
+    @FXML
+    private void Leita(){
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Leita");
+        dialog.setHeaderText("Leitaðu eftir Bílnúmeri eða nafni");
+        dialog.setContentText("Leitarorð:");
+        dialog.showAndWait().ifPresent(input ->{
+            String filter = input.toLowerCase();
+            filteredList.setPredicate(bokun -> bokun.getNafn().toLowerCase().contains(filter)
+            || bokun.getBilNumer().toLowerCase().contains(filter));
+
+            if(filteredList.isEmpty()){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("ekkert fannst");
+                alert.setHeaderText(null);
+                alert.setContentText("Engar niðurstöður fundust fyrir: " + input);
+                alert.showAndWait();
+                filteredList.setPredicate(b->true);
+            }
+        });
+    }
+    @FXML
+    private void Hreinsa(){
+        filteredList.setPredicate(b->true);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Leit hreinsuð");
+        alert.setHeaderText(null);
+        alert.setContentText("Sía er hreinsuð");
         alert.showAndWait();
     }
 }
