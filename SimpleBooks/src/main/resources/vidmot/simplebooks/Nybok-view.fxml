@@ -1,25 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<VBox xmlns:fx="http://javafx.com/fxml"
-      fx:controller="vidmot.simplebooks.nyrGluggiController">
-    <Label text="Nafn Kúnna"/>
-    <TextField  fx:id="fxNafn"/>
-    <Label text="Dagsetning"/>
-    <DatePicker fx:id="fxDate"/>
-    <Label text="Tímasetning"/>
-    <ComboBox fx:id="fxTime"/>
-    <Label text="Bílnúmer"/>
-    <TextField fx:id="fxBilNumer"/>
-    <Label text="Athugasemdir"/>
-    <TextField fx:id="fxAth"/>
+<VBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.6" fx:controller="vidmot.simplebooks.nyrGluggiController">
+    <Label text="Fyllið inn í alla þá reiti sem eru merktir *">
+      <VBox.margin>
+         <Insets top="3.0" />
+      </VBox.margin></Label>
+    <Label text="Nafn Kúnna *">
+      <VBox.margin>
+         <Insets top="3.0" />
+      </VBox.margin></Label>
+    <TextField fx:id="fxNafn">
+      <VBox.margin>
+         <Insets right="50.0" top="3.0" />
+      </VBox.margin></TextField>
+    <Label text="Dagsetning *" />
+    <DatePicker fx:id="fxDate">
+      <VBox.margin>
+         <Insets top="3.0" />
+      </VBox.margin></DatePicker>
+    <Label text="Tímasetning *" />
+    <ComboBox fx:id="fxTime" prefHeight="26.0" prefWidth="164.0">
+      <VBox.margin>
+         <Insets top="3.0" />
+      </VBox.margin></ComboBox>
+    <Label text="Bílnúmer *" />
+    <TextField fx:id="fxBilNumer">
+      <VBox.margin>
+         <Insets right="50.0" top="3.0" />
+      </VBox.margin></TextField>
+    <Label text="Athugasemdir" />
+    <TextField fx:id="fxAth">
+      <VBox.margin>
+         <Insets right="50.0" top="3.0" />
+      </VBox.margin></TextField>
     <HBox>
-        <Button fx:id="button" text="Breyta Tíma" onAction="#buaTilBok"/>
-        <Button text="Cancel" onAction="#loka"/>
+        <Button fx:id="button" onAction="#buaTilBok" text="Bóka Tíma">
+         <HBox.margin>
+            <Insets top="3.0" />
+         </HBox.margin></Button>
+        <Button onAction="#loka" prefWidth="70.0" text="Cancel">
+         <HBox.margin>
+            <Insets left="60.0" top="3.0" />
+         </HBox.margin></Button>
     </HBox>
 </VBox>
