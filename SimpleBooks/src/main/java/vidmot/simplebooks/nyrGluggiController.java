@@ -2,10 +2,7 @@ package vidmot.simplebooks;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.util.StringConverter;
 import vinnsla.Bokanir;
 import vinnsla.DataManager;
@@ -62,7 +59,12 @@ public class nyrGluggiController {
 
     @FXML
     private void buaTilBok(){
-        if(fxDate.getValue() == null || fxTime.getValue() == null){
+        if(fxNafn.getText().isBlank() || fxDate.getValue() == null || fxTime.getValue() == null || fxBilNumer.getText().isBlank()){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Vantar Upplýsingar");
+            alert.setHeaderText(null);
+            alert.setContentText("Fylltu inn alla þá reiti sem eru merktir með *");
+            alert.showAndWait();
             return;
         }
         String nafn = fxNafn.getText();
@@ -74,18 +76,37 @@ public class nyrGluggiController {
         if(sucess){
             button.getScene().getWindow().hide();
         }
+        else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Gagnagrunns Villa");
+            alert.setHeaderText(null);
+            alert.setContentText("Ekki tókst að búa til Bók reyndu aftur");
+            alert.showAndWait();
+        }
     }
     @FXML
     private void uppfaera(){
         if(bokanaUppfaera == null){
             return;
         }
-        if(fxDate.getValue() == null || fxTime.getValue() == null){
+        if(fxNafn.getText().isBlank() || fxDate.getValue() == null || fxTime.getValue() == null || fxBilNumer.getText().isBlank()){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Vantar Upplýsingar");
+            alert.setHeaderText(null);
+            alert.setContentText("Ekki hægt að uppfæra Bók með tómum upplýsingum");
+            alert.showAndWait();
             return;
         }
         boolean sucess = DataManager.uppfaeraBokun(bokanaUppfaera.getId(),fxNafn.getText(),fxDate.getValue().toString(),fxTime.getValue().format(timi),fxBilNumer.getText(),fxAth.getText());
         if(sucess){
             button.getScene().getWindow().hide();
+        }
+        else{
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Gagnagrunns Villa");
+            alert.setHeaderText(null);
+            alert.setContentText("Ekki tókst að uppfæra Bók reyndu aftur");
+            alert.showAndWait();
         }
     }
 
