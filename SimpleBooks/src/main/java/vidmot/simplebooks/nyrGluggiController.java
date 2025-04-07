@@ -12,7 +12,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
-
+/**
+ * Main klasinn okkar
+ * klasinn er notaður til að búa til nýja glugga
+ * fyrir crud aðgerðir
+ * geymum fxml breytur fyrir gögn sem fara í database
+ */
 public class nyrGluggiController {
     @FXML
     private TextField fxNafn;
@@ -32,6 +37,10 @@ public class nyrGluggiController {
 
     private Bokanir bokanaUppfaera;
 
+    /**
+     * initialize aðferð
+     * notum hana fyrir tímasetningu
+     */
     @FXML
     public void initialize(){
         fxTime.setItems(FXCollections.observableArrayList(IntStream.range(8,18).boxed().flatMap(hour -> Stream.of(0,5,10,15,20,25,30,35,40,45,50,55).map(minute -> LocalTime.of(hour,minute))).collect(Collectors.toList())));
@@ -46,7 +55,10 @@ public class nyrGluggiController {
             }
         });
     }
-
+    /**
+     * aðferð sem tekur inn bokanir klasa
+     * @param bokanir tökum inn object af klasa
+     */
     public void setBokunarGogn(Bokanir bokanir){
         this.bokanaUppfaera = bokanir;
         fxNafn.setText(bokanir.getNafn());
@@ -56,7 +68,12 @@ public class nyrGluggiController {
         fxAth.setText(bokanir.getAth());
         button.setOnAction(e -> uppfaera());
     }
-
+    /**
+     * Aðferð notum hana til að búa til nýja bók
+     * notum alert aðferðir
+     * til að tilkynna notanda um hvaða gögn þarf og fleirra
+     * við búum til nýjar bókanir hérna og sendum þær í gagnagrunn
+     */
     @FXML
     private void buaTilBok(){
         if(fxNafn.getText().isBlank() || fxDate.getValue() == null || fxTime.getValue() == null || fxBilNumer.getText().isBlank()){
@@ -84,6 +101,12 @@ public class nyrGluggiController {
             alert.showAndWait();
         }
     }
+    /**
+     * uppfærslu aðferð
+     * hérna uppfærum við eða breytum bókun
+     * notum alert aðferðir eins og að ofan
+     * sendum breyttu bók aftur í gagnagrunn
+     */
     @FXML
     private void uppfaera(){
         if(bokanaUppfaera == null){
@@ -109,12 +132,17 @@ public class nyrGluggiController {
             alert.showAndWait();
         }
     }
-
+    /**
+     * aðferð til að loka glugga með cancel takka
+     */
     @FXML
     private void loka(){
         fxNafn.getScene().getWindow().hide();
     }
-
+    /**
+     * main aðferð ekki notuð
+     * @param args ekki notað
+     */
     public static void main(String[] args) {
 
     }

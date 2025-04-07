@@ -14,7 +14,10 @@ import vinnsla.Bokanir;
 import vinnsla.DataManager;
 
 import java.io.IOException;
-
+/**
+ * Main klasinn okkar
+ * hérna höldum við utan um Table view og hvernig bókanir eru sýndar
+ */
 public class simpleBooksController {
     @FXML
     private TableView<Bokanir> fxBokun;
@@ -32,7 +35,11 @@ public class simpleBooksController {
     TableColumn<Bokanir,String> athCol;
     private ObservableList<Bokanir> bokanaListi = FXCollections.observableArrayList();
     private FilteredList<Bokanir> filteredList;
-
+    /**
+     * init aðferð
+     * hérna setjum við gildi inn í table view töflu
+     * erum líka með filtered list fyrir  search aðferð
+     */
     @FXML
     public void initialize(){
         idCol.setCellValueFactory(cell -> cell.getValue().idProperty().asObject());
@@ -48,16 +55,26 @@ public class simpleBooksController {
         fxBokun.setItems(filteredList);
 
     }
+    /**
+     * aðferð til að sýna bókanir
+     */
     private void synaBokanir(){
         bokanaListi.clear();
         bokanaListi.addAll(DataManager.getBokun());
     }
-
+    /**
+     * aðferð sem sýnir bókunar glugga
+     * köllum á aðferð með fxml skrá
+     */
     @FXML
     private void BokunarGluggi(){
         nyrGluggi("NyBok-view.fxml","Bóka Tíma",null);
     }
-
+    /**
+     * aðferð fyrir uppfærslu glugga
+     * við notum selection aðferð þar sem við smellum á bók sem á að uppfæra
+     * köllum á glugga aðferð með fxml skrá
+     */
     @FXML
     private void uppfaeraGluggi(){
         Bokanir valinBokun = fxBokun.getSelectionModel().getSelectedItem();
@@ -67,7 +84,13 @@ public class simpleBooksController {
         }
         nyrGluggi("uppfaera-view.fxml","Breyta Bókun",valinBokun);
     }
-
+    /**
+     * aðferð sem býr til glugga fyrir nýjar bókanir/uppfærslu
+     * @param fxmlSkra tekur inn nafn á fxml skrá
+     * @param title tökum inn titil á glugga
+     * @param bokanir tökum inn gögn
+     *
+     */
     private void nyrGluggi(String fxmlSkra,String title,Bokanir bokanir){
         try{
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlSkra));
@@ -88,6 +111,11 @@ public class simpleBooksController {
             e.printStackTrace();
         }
     }
+    /**
+     * eyða aðferð
+     * notað til að eyða ákveðnri bók
+     * í ui
+     */
     @FXML
     private void eyda(){
         Bokanir valinBok = fxBokun.getSelectionModel().getSelectedItem();
@@ -103,7 +131,11 @@ public class simpleBooksController {
             showAlert("Villa","gat ekki eytt bókun");
         }
     }
-
+    /**
+     * aðferð fyrir villu meðhöndlanir
+     * @param title tekur inn titil á glugga
+     * @param msg tekur inn skilaboð til að sýna notanda
+     */
     private void showAlert(String title,String msg){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
@@ -111,10 +143,18 @@ public class simpleBooksController {
         alert.setContentText(msg);
         alert.showAndWait();
     }
+    /**
+     * hætta aðferð fyrir forrit
+     * slekkur á forriti
+     */
     @FXML
     private void Haetta(){
         System.exit(0);
     }
+    /**
+     * About aðferð
+     * hérna sýnum við notanda um forrit
+     */
     @FXML
     private void About(){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -130,7 +170,13 @@ public class simpleBooksController {
                 "til að hreinsa síu og fá listan til baka ýttu á Hreinsa undir search");
         alert.showAndWait();
     }
-
+    /**
+     * Leita aðferð
+     * hérna getum við leitað af ákveðnri bók
+     * með nafni eða bílnúmeri
+     * notum javafx filtered list
+     * var auðveldara en að nota SQL aðferð
+     */
     @FXML
     private void Leita(){
         TextInputDialog dialog = new TextInputDialog();
@@ -152,6 +198,12 @@ public class simpleBooksController {
             }
         });
     }
+    /**
+     * Hreinsa aðferð
+     * notað til að hreinsa leitar orð í search function
+     * svo að við getum aftur séð original lista
+     * án þess að loka forriti
+     */
     @FXML
     private void Hreinsa(){
         filteredList.setPredicate(b->true);
