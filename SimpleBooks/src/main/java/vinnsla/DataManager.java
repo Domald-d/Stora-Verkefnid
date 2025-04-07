@@ -5,6 +5,12 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Main klasin okkar sem sér um allar Database tengingar
+ * og CRUD  aðgerðir
+ * og býr til töflu/sendir database yfir á annan stað svo hægt
+ * sé að nota hann eftir að er búið að compila forrit
+ */
 public class DataManager {
     private static final String DB = "bokanir.db";
     private static final String Path = "vidmot/simplebooks/db/bokanir.db";
@@ -12,7 +18,11 @@ public class DataManager {
     static {
         initializeDatabase();
     }
-
+    /**
+     * Static aðferð til að upphafsetja gagnarunn
+     * hérna bý ég til töflu (ekki notað nema í byrjun)
+     * og köllum á copy aðferð til að copya database í annað directory
+     */
     private static void initializeDatabase(){
         File dbSkra = new File(Local_Path);
         if(!dbSkra.exists()){
@@ -22,7 +32,11 @@ public class DataManager {
         buatilTable(Local_Path);
         buatilTable(ProjectPath);
     }
-
+    /**
+     * Static aðferð notuð til að copya gagnagrunn yfir í annað directory
+     * svo hægt sé að nota crud aðgerðir eftir að búið er að
+     * compila/jar forrit
+     */
     private static void copyDatabase(){
         try(InputStream in = DataManager.class.getResourceAsStream(Path);
             OutputStream out = new FileOutputStream(Local_Path)){
@@ -40,7 +54,12 @@ public class DataManager {
             e.printStackTrace();
         }
     }
-
+    /**
+     * static aðferð sem býr til töflu í database
+     * SQL aðferðir
+     * við notum þetta í byrjun en ef tafla er til nú þegar þá gerist ekkert
+     * @param pathASkra breyta sem tekur við Pathinu á db skrá
+     */
     private static void buatilTable(String pathASkra){
         String sql = "CREATE TABLE IF NOT EXISTS bookings (" + "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
     "nafn TEXT NOT NULL, " + "date TEXT NOT NULL, " + "time TEXT NOT NULL, " + "bilNumer TEXT NOT NULL, "+ "athugasemdir TEXT)";
@@ -52,11 +71,24 @@ public class DataManager {
             e.printStackTrace();
         }
     }
-
+    /**
+     * static aðferð sem tengir forrit við gagnagrunn
+     * sqlite connect aðferð
+     * @return skilum connection
+     */
     public static Connection connect() throws SQLException{
         return DriverManager.getConnection("jdbc:sqlite:" + Local_Path);
     }
-
+    /**
+     * Create aðferð búum til nýja bók hérna
+     * notum SQL aðferð
+     * @param nafn tökum inn Nafn
+     * @param date tökum inn dagsetningu
+     * @param time tökum inn tímasetningu
+     * @param bilNumer tökum inn bílanúmer
+     * @param ath tökum inn athugasemd
+     * @return true skilum true ef aðgerð heppnaðist
+     */
     public static boolean nyBokun(String nafn, String date, String time, String bilNumer, String ath){
         String sql = "INSERT INTO bookings (nafn,date,time,bilNumer,athugasemdir) VALUES(?,?,?,?,?)";
         try(Connection conn = connect();
@@ -73,7 +105,12 @@ public class DataManager {
             return false;
         }
     }
-
+    /**
+     * Lista aðferð
+     * hérna náum við í gögn úr gagnagrunn og sýnum þær
+     * í Tableview í javafx
+     * @return skilum bókunum
+     */
     public static List<Bokanir> getBokun() {
         List<Bokanir> bokanir = new ArrayList<>();
         String sql = "SELECT * FROM bookings";
@@ -91,7 +128,17 @@ public class DataManager {
         }
         return bokanir;
     }
-
+    /**
+     * Aðferð til að uppfæra bók/breyta bókun
+     * @param id tökum inn ID af bókun
+     * @param nafn tökum inn nafn
+     * @param  date tökum inn dagsetningu
+     * @param time  tökum inn tímasetningu
+     * @param bilNumer tökum inn bílnúmer
+     * @param ath tökum inn athugasemd
+     * notum SQL aðferð til að breyta bókun
+     * @return true skilum true ef aðferð heppnaðist
+     */
     public static boolean uppfaeraBokun(int id,String nafn,String date,String time,String bilNumer,String ath){
         String sql = "UPDATE bookings SET nafn=?,date=?,time=?,bilNumer=?,athugasemdir=? WHERE id=?";
         try(Connection conn = connect();
@@ -109,6 +156,12 @@ public class DataManager {
             return false;
         }
     }
+    /**
+     * Eyða bók aðferð
+     * notum hana til að eyða bók úr gagnagrunni
+     * @param id tökum inn id af bók
+     * @return true skilum true ef við náum að eyða bók
+     */
     public static boolean eydaBokun(int id){
         String sql = "DELETE FROM bookings WHERE id = ?";
         try(Connection conn = connect();
@@ -121,6 +174,10 @@ public class DataManager {
             return false;
         }
     }
+    /**
+     * main aðferð ekki notuð
+     * @param args ekki notað
+     */
     public static void main(String[] args) {
 
     }
