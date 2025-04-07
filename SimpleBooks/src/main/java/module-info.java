@@ -1,6 +1,7 @@
 module vidmot.simplebooks {
     requires javafx.controls;
     requires javafx.fxml;
+    requires org.xerial.sqlitejdbc;
     requires java.sql;
 
 
