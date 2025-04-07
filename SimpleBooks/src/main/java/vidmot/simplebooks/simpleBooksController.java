@@ -68,7 +68,7 @@ public class simpleBooksController {
      */
     @FXML
     private void BokunarGluggi(){
-        nyrGluggi("NyBok-view.fxml","Bóka Tíma",null);
+        nyrGluggi("/vidmot/simplebooks/Nybok-view.fxml","Bóka Tíma",null);
     }
     /**
      * aðferð fyrir uppfærslu glugga
@@ -82,7 +82,7 @@ public class simpleBooksController {
             showAlert("Villa","þú hefur ekki valið neina bókun til að uppfæra");
             return;
         }
-        nyrGluggi("uppfaera-view.fxml","Breyta Bókun",valinBokun);
+        nyrGluggi("/vidmot/simplebooks/uppfaera-view.fxml","Breyta Bókun",valinBokun);
     }
     /**
      * aðferð sem býr til glugga fyrir nýjar bókanir/uppfærslu
@@ -93,7 +93,8 @@ public class simpleBooksController {
      */
     private void nyrGluggi(String fxmlSkra,String title,Bokanir bokanir){
         try{
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlSkra));
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource(fxmlSkra));
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle(title);
